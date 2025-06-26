@@ -3,16 +3,26 @@
   "version": "1.0.0",
   "description": "Adds a Maps button to the Google search bar.",
   "manifest_version": 3,
-  "permissions": ["scripting"],
-  "host_permissions": ["https://www.google.*/*"],
+  "permissions": ["scripting", "storage"],
+  "host_permissions": ["https://www.google.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "options/options.html",
+    "default_icon": {
+      "48": "images/icon.png"
+    }
+  },
   "content_scripts": [
     {
       "matches": ["https://www.google.com/*"],
-      "js": ["content.js"],
+      "js": ["content/inject.js"],
       "run_at": "document_idle"
     }
   ],
   "icons": {
     "48": "images/icon.png"
-  }
+  },
+  "options_page": "options/options.html"
 }
