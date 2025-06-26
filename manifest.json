@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Add Maps Button",
+  "version": "1.0",
+  "description": "Adds a Maps button to the Google search bar.",
+  "content_scripts": [
+    {
+      "matches": ["https://www.google.com/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
