@@ -1,28 +1,47 @@
 {
-  "name": "Google Maps Button",
-  "version": "1.0.0",
-  "description": "Adds a Maps button to the Google search bar.",
-  "manifest_version": 3,
-  "permissions": ["scripting", "storage"],
-  "host_permissions": ["https://www.google.com/*"],
-  "background": {
-    "service_worker": "background.js"
-  },
-  "action": {
-    "default_popup": "options/options.html",
-    "default_icon": {
-      "48": "images/icon.png"
-    }
-  },
-  "content_scripts": [
-    {
-      "matches": ["https://www.google.com/*"],
-      "js": ["content/inject.js"],
-      "run_at": "document_idle"
-    }
-  ],
-  "icons": {
-    "48": "images/icon.png"
-  },
-  "options_page": "options/options.html"
+    "name": "Google Maps Button",
+    "version": "1.0.0",
+    "description": "Adds a Maps button to the Google search bar.",
+    "manifest_version": 3,
+    "permissions": [
+        "scripting",
+        "storage"
+    ],
+    "host_permissions": [
+        "https://www.google.com/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_popup": "options/options.html",
+        "default_icon": {
+            "48": "images/icon.png"
+        }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://www.google.com/*"
+            ],
+            "js": [
+                "content/inject.js"
+            ],
+            "run_at": "document_idle"
+        }
+    ],
+    "icons": {
+        "48": "images/icon.png"
+    },
+    "options_page": "options/options.html",
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "modules/*.js"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ]
 }
