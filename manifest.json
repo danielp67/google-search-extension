@@ -1,7 +1,7 @@
 {
-    "name": "Google Maps Button",
+    "name": "Google Maps Button and more ...",
     "version": "1.0.0",
-    "description": "Adds a Maps button to the Google search bar.",
+    "description": "Adds a Maps button to the Google search bar, and other more modules.",
     "manifest_version": 3,
     "permissions": [
         "scripting",
@@ -11,13 +11,24 @@
         "https://www.google.com/*"
     ],
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "background.js",
+        "type": "module"
     },
     "action": {
-        "default_popup": "options/options.html",
+        "default_popup": "popup.html",
         "default_icon": {
-            "48": "images/icon.png"
+            "16": "images/icon.png",
+            "32": "images/icon.png",
+            "48": "images/icon.png",
+            "128": "images/icon.png"
         }
+    },
+    "options_page": "options/options.html",
+    "icons": {
+        "16": "images/icon.png",
+        "32": "images/icon.png",
+        "48": "images/icon.png",
+        "128": "images/icon.png"
     },
     "content_scripts": [
         {
@@ -30,10 +41,6 @@
             "run_at": "document_idle"
         }
     ],
-    "icons": {
-        "48": "images/icon.png"
-    },
-    "options_page": "options/options.html",
     "web_accessible_resources": [
         {
             "resources": [

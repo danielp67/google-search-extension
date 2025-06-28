@@ -1,12 +1,17 @@
 (async () => {
-  const { activeModules = [] } = await chrome.storage.sync.get("activeModules");
+  const { activeModules = {} } = await chrome.storage.sync.get("activeModules");
 
-  chrome.runtime.sendMessage({ action: "updateBadge", count: activeModules.length });
+  const activeKeys = Object.entries(activeModules)
+    .filter(([_, enabled]) => enabled)
+    .map(([key]) => key);
 
-  for (const module of activeModules) {
+  chrome.runtime.sendMessage({ action: "updateBadge", count: activeKeys.length });
+
+  for (const module of activeKeys) {
     try {
-      const mod = await import(`../modules/${module}.js`);
-        if (mod && typeof mod.run === 'function') {
+      const modUrl = chrome.runtime.getURL(`modules/${module}.js`);
+      const mod = await import(modUrl);
+      if (mod && typeof mod.run === 'function') {
         mod.run();
       }
     } catch (e) {
