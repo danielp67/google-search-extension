@@ -1,0 +1,74 @@
+{
+  "extName": {
+    "message": "Google Search Plus",
+    "description": "The name of the extension"
+  },
+  "extDescription": {
+    "message": "Enhance your Google search experience with quick access to Maps, Reddit, Translate, ChatGPT, and advanced search options.",
+    "description": "The description of the extension"
+  },
+  "optionsTitle": {
+    "message": "Options - Google Search Plus",
+    "description": "Title of the options page"
+  },
+  "optionsHeader": {
+    "message": "Google Search Plus - Options",
+    "description": "Header of the options page"
+  },
+  "modulesHeader": {
+    "message": "Modules",
+    "description": "Header for the modules section"
+  },
+  "moduleColumn": {
+    "message": "Module",
+    "description": "Column header for module name"
+  },
+  "toggleColumn": {
+    "message": "On / Off",
+    "description": "Column header for module toggle"
+  },
+  "mapsModule": {
+    "message": "Maps",
+    "description": "Name of the Maps module"
+  },
+  "redditModule": {
+    "message": "Reddit",
+    "description": "Name of the Reddit module"
+  },
+  "translateModule": {
+    "message": "Translate",
+    "description": "Name of the Translate module"
+  },
+  "chatgptModule": {
+    "message": "ChatGPT",
+    "description": "Name of the ChatGPT module"
+  },
+  "advancedSearchModule": {
+    "message": "Search ++",
+    "description": "Name of the Advanced Search module"
+  },
+  "languageSettings": {
+    "message": "Language Settings",
+    "description": "Header for the language settings section"
+  },
+  "languageDescription": {
+    "message": "Select your preferred language. This will be used as the default language for searches and translations.",
+    "description": "Description of the language settings"
+  },
+  "autoDetect": {
+    "message": "Auto-detect",
+    "description": "Option for auto-detecting language"
+  },
+  "settingsSaved": {
+    "message": "✅ Settings saved!",
+    "description": "Message shown when settings are saved"
+  },
+  "advancedSearch": {
+    "message": "Advanced Search",
+    "description": "Label for the Advanced Search button"
+  },
+  "clickOptions": {
+    "message": "Click to open options",
+    "description": "Text in the popup to open options"
+  }
+}

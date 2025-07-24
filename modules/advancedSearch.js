@@ -89,21 +89,21 @@ function showPopup() {
       <h4 style="margin-top: 0; margin-bottom: 12px; color: #202124; font-size: 16px; font-weight: 500; border-bottom: 1px solid #dadce0; padding-bottom: 8px;">Find pages with...</h4>
       <div style="display: grid; grid-template-columns: 180px 1fr; gap: 10px; align-items: center;">
         <label for="as_all" style="font-size: 14px; color: #5f6368;">all these words:</label>
-        <input placeholder="Type important words" id="as_all" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
+        <input placeholder="Type important words" id="as_all" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124;"/>
 
         <label for="as_exact" style="font-size: 14px; color: #5f6368;">this exact word or phrase:</label>
-        <input placeholder="Put exact words in quotes" id="as_exact" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
+        <input placeholder="Put exact words in quotes" id="as_exact" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124;"/>
 
         <label for="as_any" style="font-size: 14px; color: #5f6368;">any of these words:</label>
-        <input placeholder="Type OR between words" id="as_any" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
+        <input placeholder="Type OR between words" id="as_any" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124;"/>
 
         <label for="as_none" style="font-size: 14px; color: #5f6368;">none of these words:</label>
-        <input placeholder="Put - in front of words" id="as_none" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
+        <input placeholder="Put - in front of words" id="as_none" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124;"/>
 
         <label for="as_numbers" style="font-size: 14px; color: #5f6368;">numbers ranging from:</label>
         <div style="display: flex; gap: 10px;">
-          <input placeholder="low" id="as_numbers_from" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 50%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
-          <input placeholder="high" id="as_numbers_to" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 50%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
+          <input placeholder="low" id="as_numbers_from" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 50%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124;"/>
+          <input placeholder="high" id="as_numbers_to" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 50%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124;"/>
         </div>
       </div>
     </div>
@@ -112,11 +112,11 @@ function showPopup() {
       <h4 style="margin-top: 0; margin-bottom: 12px; color: #202124; font-size: 16px; font-weight: 500; border-bottom: 1px solid #dadce0; padding-bottom: 8px;">Then narrow your results by...</h4>
       <div style="display: grid; grid-template-columns: 180px 1fr; gap: 10px; align-items: center;">
         <label for="as_site" style="font-size: 14px; color: #5f6368;">site or domain:</label>
-        <input placeholder="e.g., wikipedia.org, .edu" id="as_site" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
+        <input placeholder="e.g., wikipedia.org, .edu" id="as_site" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124;"/>
 
         <label style="font-size: 14px; color: #5f6368;">terms appearing:</label>
         <div>
-          <select id="as_occt" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
+          <select id="as_occt" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
             <option value="">anywhere in the page</option>
             <option value="title">in the title of the page</option>
             <option value="url">in the URL of the page</option>
@@ -126,7 +126,7 @@ function showPopup() {
         </div>
 
         <label for="as_filetype" style="font-size: 14px; color: #5f6368;">file type:</label>
-        <select id="as_file" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
+        <select id="as_file" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
           <option value="">any format</option>
           <option value="pdf">PDF (.pdf)</option>
           <option value="doc">Microsoft Word (.doc)</option>
@@ -144,7 +144,7 @@ function showPopup() {
         </select>
 
         <label style="font-size: 14px; color: #5f6368;">usage rights:</label>
-        <select id="as_rights" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
+        <select id="as_rights" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
           <option value="">not filtered by license</option>
           <option value="cc_publicdomain">free to use or share</option>
           <option value="cc_attribute">free to use or share, even commercially</option>
@@ -159,7 +159,7 @@ function showPopup() {
       <h4 style="margin-top: 0; margin-bottom: 12px; color: #202124; font-size: 16px; font-weight: 500; border-bottom: 1px solid #dadce0; padding-bottom: 8px;">Filter by date and region</h4>
       <div style="display: grid; grid-template-columns: 180px 1fr; gap: 10px; align-items: center;">
         <label style="font-size: 14px; color: #5f6368;">last update:</label>
-        <select id="as_time" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
+        <select id="as_time" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
           <option value="">anytime</option>
           <option value="h">past hour</option>
           <option value="d">past 24 hours</option>
@@ -172,15 +172,15 @@ function showPopup() {
         <div id="as_date_range_container" style="display: none; grid-column: span 2; margin-top: 10px;">
           <div style="display: grid; grid-template-columns: 180px 1fr; gap: 10px; align-items: center;">
             <label for="as_date_from" style="font-size: 14px; color: #5f6368;">from date:</label>
-            <input type="date" id="as_date_from" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
+            <input type="date" id="as_date_from" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124;"/>
 
             <label for="as_date_to" style="font-size: 14px; color: #5f6368;">to date:</label>
-            <input type="date" id="as_date_to" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
+            <input type="date" id="as_date_to" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124;"/>
           </div>
         </div>
 
         <label style="font-size: 14px; color: #5f6368;">language:</label>
-        <select id="as_lang" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
+        <select id="as_lang" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
           <option value="">any language</option>
           <option value="lang_en">English</option>
           <option value="lang_fr">French</option>
@@ -198,7 +198,7 @@ function showPopup() {
         </select>
 
         <label style="font-size: 14px; color: #5f6368;">region:</label>
-        <select id="as_cr" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
+        <select id="as_cr" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
           <option value="">any region</option>
           <option value="countryUS">United States</option>
           <option value="countryGB">United Kingdom</option>
@@ -214,7 +214,7 @@ function showPopup() {
         </select>
 
         <label style="font-size: 14px; color: #5f6368;">SafeSearch:</label>
-        <select id="as_safesearch" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
+        <select id="as_safesearch" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; color: #202124; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
           <option value="">Show most relevant results</option>
           <option value="active">Filter explicit results</option>
         </select>

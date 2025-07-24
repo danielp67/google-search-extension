@@ -58,6 +58,14 @@ Google Search Plus is available in multiple languages:
 - Français (French)
 - Deutsch (German)
 - Español (Spanish)
+- Italiano (Italian)
+- 日本語 (Japanese)
+- 简体中文 (Simplified Chinese)
+- 繁體中文 (Traditional Chinese)
+- العربية (Arabic)
+- हिन्दी (Hindi)
+- Portugês (Portuguese)
+- Русский (Russian)
 - And more!
 
 The extension will automatically use your browser's language, or you can set your preferred language in the options.
