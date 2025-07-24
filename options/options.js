@@ -1,9 +1,9 @@
 const modules = [
-  { key: "mapsButton", label: "Maps" },
-  { key: "redditButton", label: "Reddit" },
-  { key: "translateButton", label: "Translate" },
-  { key: "chatgptButton", label: "ChatGPT" },
-  { key: "advancedSearch", label: "Search ++" }
+  { key: "mapsButton", label: chrome.i18n.getMessage("mapsModule") },
+  { key: "redditButton", label: chrome.i18n.getMessage("redditModule") },
+  { key: "translateButton", label: chrome.i18n.getMessage("translateModule") },
+  { key: "chatgptButton", label: chrome.i18n.getMessage("chatgptModule") },
+  { key: "advancedSearch", label: chrome.i18n.getMessage("advancedSearchModule") }
 ];
 
 const languages = [
@@ -72,7 +72,7 @@ function buildForm(savedPrefs = {}) {
   // Add language options
   const defaultOption = document.createElement("option");
   defaultOption.value = "";
-  defaultOption.textContent = "Auto-detect";
+  defaultOption.textContent = chrome.i18n.getMessage("autoDetect");
   select.appendChild(defaultOption);
 
   languages.forEach(({ code, name }) => {

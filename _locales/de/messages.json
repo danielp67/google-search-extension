@@ -1,0 +1,74 @@
+{
+  "extName": {
+    "message": "Google Search Plus",
+    "description": "Der Name der Erweiterung"
+  },
+  "extDescription": {
+    "message": "Verbessern Sie Ihre Google-Sucherfahrung mit schnellem Zugriff auf Maps, Reddit, Übersetzung, ChatGPT und erweiterten Suchoptionen.",
+    "description": "Die Beschreibung der Erweiterung"
+  },
+  "optionsTitle": {
+    "message": "Optionen - Google Search Plus",
+    "description": "Titel der Optionsseite"
+  },
+  "optionsHeader": {
+    "message": "Google Search Plus - Optionen",
+    "description": "Überschrift der Optionsseite"
+  },
+  "modulesHeader": {
+    "message": "Module",
+    "description": "Überschrift für den Modulbereich"
+  },
+  "moduleColumn": {
+    "message": "Modul",
+    "description": "Spaltenüberschrift für den Modulnamen"
+  },
+  "toggleColumn": {
+    "message": "Ein / Aus",
+    "description": "Spaltenüberschrift für die Modulaktivierung"
+  },
+  "mapsModule": {
+    "message": "Maps",
+    "description": "Name des Maps-Moduls"
+  },
+  "redditModule": {
+    "message": "Reddit",
+    "description": "Name des Reddit-Moduls"
+  },
+  "translateModule": {
+    "message": "Übersetzen",
+    "description": "Name des Übersetzungsmoduls"
+  },
+  "chatgptModule": {
+    "message": "ChatGPT",
+    "description": "Name des ChatGPT-Moduls"
+  },
+  "advancedSearchModule": {
+    "message": "Suche ++",
+    "description": "Name des erweiterten Suchmoduls"
+  },
+  "languageSettings": {
+    "message": "Spracheinstellungen",
+    "description": "Überschrift für den Spracheinstellungsbereich"
+  },
+  "languageDescription": {
+    "message": "Wählen Sie Ihre bevorzugte Sprache. Diese wird als Standardsprache für Suchen und Übersetzungen verwendet.",
+    "description": "Beschreibung der Spracheinstellungen"
+  },
+  "autoDetect": {
+    "message": "Automatisch erkennen",
+    "description": "Option für die automatische Spracherkennung"
+  },
+  "settingsSaved": {
+    "message": "✅ Einstellungen gespeichert!",
+    "description": "Nachricht, die angezeigt wird, wenn Einstellungen gespeichert werden"
+  },
+  "advancedSearch": {
+    "message": "Erweiterte Suche",
+    "description": "Beschriftung für die Schaltfläche zur erweiterten Suche"
+  },
+  "clickOptions": {
+    "message": "Klicken Sie, um Optionen zu öffnen",
+    "description": "Text im Popup zum Öffnen von Optionen"
+  }
+}

@@ -1,7 +1,8 @@
 {
-    "name": "Google Search Plus",
+    "name": "__MSG_extName__",
     "version": "1.0.0",
-    "description": "Adds a Maps button to the Google search bar, and other more modules.",
+    "description": "__MSG_extDescription__",
+    "default_locale": "en",
     "manifest_version": 3,
     "permissions": [
         "scripting",

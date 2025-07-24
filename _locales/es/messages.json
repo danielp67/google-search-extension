@@ -1,0 +1,74 @@
+{
+  "extName": {
+    "message": "Google Search Plus",
+    "description": "El nombre de la extensión"
+  },
+  "extDescription": {
+    "message": "Mejore su experiencia de búsqueda de Google con acceso rápido a Maps, Reddit, Traducción, ChatGPT y opciones de búsqueda avanzada.",
+    "description": "La descripción de la extensión"
+  },
+  "optionsTitle": {
+    "message": "Opciones - Google Search Plus",
+    "description": "Título de la página de opciones"
+  },
+  "optionsHeader": {
+    "message": "Google Search Plus - Opciones",
+    "description": "Encabezado de la página de opciones"
+  },
+  "modulesHeader": {
+    "message": "Módulos",
+    "description": "Encabezado para la sección de módulos"
+  },
+  "moduleColumn": {
+    "message": "Módulo",
+    "description": "Encabezado de columna para el nombre del módulo"
+  },
+  "toggleColumn": {
+    "message": "Activar / Desactivar",
+    "description": "Encabezado de columna para la activación del módulo"
+  },
+  "mapsModule": {
+    "message": "Maps",
+    "description": "Nombre del módulo Maps"
+  },
+  "redditModule": {
+    "message": "Reddit",
+    "description": "Nombre del módulo Reddit"
+  },
+  "translateModule": {
+    "message": "Traducir",
+    "description": "Nombre del módulo Traducir"
+  },
+  "chatgptModule": {
+    "message": "ChatGPT",
+    "description": "Nombre del módulo ChatGPT"
+  },
+  "advancedSearchModule": {
+    "message": "Búsqueda ++",
+    "description": "Nombre del módulo de búsqueda avanzada"
+  },
+  "languageSettings": {
+    "message": "Configuración de idioma",
+    "description": "Encabezado para la sección de configuración de idioma"
+  },
+  "languageDescription": {
+    "message": "Seleccione su idioma preferido. Se utilizará como idioma predeterminado para búsquedas y traducciones.",
+    "description": "Descripción de la configuración de idioma"
+  },
+  "autoDetect": {
+    "message": "Detección automática",
+    "description": "Opción para la detección automática del idioma"
+  },
+  "settingsSaved": {
+    "message": "✅ ¡Configuración guardada!",
+    "description": "Mensaje mostrado cuando se guarda la configuración"
+  },
+  "advancedSearch": {
+    "message": "Búsqueda Avanzada",
+    "description": "Etiqueta para el botón de búsqueda avanzada"
+  },
+  "clickOptions": {
+    "message": "Haga clic para abrir opciones",
+    "description": "Texto en el popup para abrir opciones"
+  }
+}

@@ -22,7 +22,7 @@ export function run() {
 
   const advBtn = actualBtn.cloneNode(true);
   advBtn.id = 'advancedsearch-button';
-  advBtn.innerText = 'Advanced Search';
+  advBtn.innerText = chrome.i18n.getMessage("advancedSearch");
   advBtn.href = '#';
   advBtn.addEventListener('click', (e) => {
     e.preventDefault();

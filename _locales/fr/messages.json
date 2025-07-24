@@ -1,0 +1,74 @@
+{
+  "extName": {
+    "message": "Google Search Plus",
+    "description": "Le nom de l'extension"
+  },
+  "extDescription": {
+    "message": "Améliorez votre expérience de recherche Google avec un accès rapide à Maps, Reddit, Traduction, ChatGPT et des options de recherche avancées.",
+    "description": "La description de l'extension"
+  },
+  "optionsTitle": {
+    "message": "Options - Google Search Plus",
+    "description": "Titre de la page d'options"
+  },
+  "optionsHeader": {
+    "message": "Google Search Plus - Options",
+    "description": "En-tête de la page d'options"
+  },
+  "modulesHeader": {
+    "message": "Modules",
+    "description": "En-tête pour la section des modules"
+  },
+  "moduleColumn": {
+    "message": "Module",
+    "description": "En-tête de colonne pour le nom du module"
+  },
+  "toggleColumn": {
+    "message": "Activer / Désactiver",
+    "description": "En-tête de colonne pour l'activation du module"
+  },
+  "mapsModule": {
+    "message": "Maps",
+    "description": "Nom du module Maps"
+  },
+  "redditModule": {
+    "message": "Reddit",
+    "description": "Nom du module Reddit"
+  },
+  "translateModule": {
+    "message": "Traduction",
+    "description": "Nom du module Traduction"
+  },
+  "chatgptModule": {
+    "message": "ChatGPT",
+    "description": "Nom du module ChatGPT"
+  },
+  "advancedSearchModule": {
+    "message": "Recherche ++",
+    "description": "Nom du module de recherche avancée"
+  },
+  "languageSettings": {
+    "message": "Paramètres de langue",
+    "description": "En-tête pour la section des paramètres de langue"
+  },
+  "languageDescription": {
+    "message": "Sélectionnez votre langue préférée. Elle sera utilisée comme langue par défaut pour les recherches et les traductions.",
+    "description": "Description des paramètres de langue"
+  },
+  "autoDetect": {
+    "message": "Détection automatique",
+    "description": "Option pour la détection automatique de la langue"
+  },
+  "settingsSaved": {
+    "message": "✅ Paramètres enregistrés !",
+    "description": "Message affiché lorsque les paramètres sont enregistrés"
+  },
+  "advancedSearch": {
+    "message": "Recherche Avancée",
+    "description": "Libellé pour le bouton de recherche avancée"
+  },
+  "clickOptions": {
+    "message": "Cliquez pour ouvrir les options",
+    "description": "Texte dans le popup pour ouvrir les options"
+  }
+}
