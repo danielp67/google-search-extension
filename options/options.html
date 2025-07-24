@@ -1,33 +1,45 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Options - Search Helper</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
 </head>
 <body class="bg-dark text-white p-3">
-  <div class="container py-3 bg-dark bg-gradient text-white" style="width: 400px;--bs-bg-opacity: .85;">
+  <div class="container py-3 bg-dark bg-gradient text-white" style="width: 450px;--bs-bg-opacity: .85;">
 
     <div id="popup" class="">
         <div class="d-flex align-items-center justify-content-center my-auto my-1">
             <img src="../images/gear.png" style="width: 40px;height: 40px;" alt=""/>
-            <div class="fs-6 mx-3">Google Seach Helper - Options</div>
+            <div class="fs-6 mx-3">Google Search Helper - Options</div>
         </div>
         <div id="site" class="card m-1"></div>
     </div>
- <form id="options-form">
-      <table class="table table-hover text-white">
-      <thead>
-      <tr><th>Module</th><th>On / Off</th></tr>
-      </thead>
-      <tbody id="table-body">
-        <!-- les lignes sont insérées en JS -->
-      </tbody>
-    </table>
-  </form>
+
+    <div class="mb-4">
+      <h5 class="border-bottom pb-2 mb-3">Modules</h5>
+      <form id="options-form">
+        <table class="table table-hover text-white">
+          <thead>
+            <tr><th>Module</th><th>On / Off</th></tr>
+          </thead>
+          <tbody id="table-body">
+            <!-- rows inserted by JS -->
+          </tbody>
+        </table>
+      </form>
+    </div>
+
+    <div class="mb-4">
+      <h5 class="border-bottom pb-2 mb-3">Language Settings</h5>
+      <p class="small text-light mb-3">
+        Select your preferred language. This will be used as the default language for searches and translations.
+      </p>
+      <!-- Language dropdown will be inserted here by JS -->
+    </div>
 
   <div id="status" class="text-success small text-end" style="display: none;">
-    ✅ Préférences enregistrées !
+    ✅ Settings saved!
   </div>
 
 

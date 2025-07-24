@@ -2,7 +2,22 @@ export function run() {
   const navBar = document.querySelector('div[role="navigation"]');
   if (!navBar || document.querySelector('#advancedsearch-button')) return;
 
-  const actualBtn = [...navBar.querySelectorAll('a')].find(a => a.innerText.toLowerCase().includes('tous'));
+  // Find a navigation button to clone - try multiple languages
+  const buttonTexts = ['tous', 'all', 'alle', 'todos', 'tutti', 'tudo', 'все', 'すべて', '모두', '全部', 'الكل', 'सभी'];
+  let actualBtn = null;
+
+  for (const text of buttonTexts) {
+    actualBtn = [...navBar.querySelectorAll('a')].find(a => 
+      a.innerText.toLowerCase().includes(text)
+    );
+    if (actualBtn) break;
+  }
+
+  // If no button was found, try to use the first button in the navigation bar
+  if (!actualBtn && navBar.querySelectorAll('a').length > 0) {
+    actualBtn = navBar.querySelectorAll('a')[0];
+  }
+
   if (!actualBtn) return;
 
   const advBtn = actualBtn.cloneNode(true);
@@ -30,50 +45,72 @@ function showPopup() {
     z-index: 9999;
     background: white;
     padding: 20px;
-    border-radius: 10px;
-    max-width: 600px;
-    max-height: 80vh;
+    border-radius: 12px;
+    max-width: 650px;
+    max-height: 85vh;
     overflow-y: auto;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-    font-family: sans-serif;
-    color: #222;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    font-family: 'Google Sans', Arial, sans-serif;
+    color: #202124;
+    transition: all 0.3s ease;
   `;
 
+  // Add a semi-transparent overlay behind the popup
+  const overlay = document.createElement('div');
+  overlay.id = 'advsearch-overlay';
+  overlay.style = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9998;
+  `;
+  overlay.addEventListener('click', () => {
+    document.getElementById('advsearch-popup').remove();
+    overlay.remove();
+  });
+  document.body.appendChild(overlay);
+
   popup.innerHTML = `
-    <h3 style="margin-top: 0; color: #1a73e8;">Advanced Search</h3>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+      <h3 style="margin: 0; color: #1a73e8; font-size: 20px; font-weight: 500;">Advanced Search</h3>
+      <button id="as_close" style="background: none; border: none; cursor: pointer; font-size: 20px; color: #5f6368; padding: 5px;">×</button>
+    </div>
 
-    <div style="margin-bottom: 15px;">
-      <h4 style="margin-bottom: 5px; border-bottom: 1px solid #eee; padding-bottom: 5px;">Find pages with...</h4>
-      <div style="display: grid; grid-template-columns: 180px 1fr; gap: 5px; align-items: center;">
-        <label for="as_all">all these words:</label>
-        <input placeholder="Type important words" id="as_all" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;"/>
+    <div style="margin-bottom: 20px; background: #f8f9fa; border-radius: 8px; padding: 15px;">
+      <h4 style="margin-top: 0; margin-bottom: 12px; color: #202124; font-size: 16px; font-weight: 500; border-bottom: 1px solid #dadce0; padding-bottom: 8px;">Find pages with...</h4>
+      <div style="display: grid; grid-template-columns: 180px 1fr; gap: 10px; align-items: center;">
+        <label for="as_all" style="font-size: 14px; color: #5f6368;">all these words:</label>
+        <input placeholder="Type important words" id="as_all" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
 
-        <label for="as_exact">this exact word or phrase:</label>
-        <input placeholder="Put exact words in quotes" id="as_exact" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;"/>
+        <label for="as_exact" style="font-size: 14px; color: #5f6368;">this exact word or phrase:</label>
+        <input placeholder="Put exact words in quotes" id="as_exact" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
 
-        <label for="as_any">any of these words:</label>
-        <input placeholder="Type OR between words" id="as_any" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;"/>
+        <label for="as_any" style="font-size: 14px; color: #5f6368;">any of these words:</label>
+        <input placeholder="Type OR between words" id="as_any" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
 
-        <label for="as_none">none of these words:</label>
-        <input placeholder="Put - in front of words" id="as_none" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;"/>
+        <label for="as_none" style="font-size: 14px; color: #5f6368;">none of these words:</label>
+        <input placeholder="Put - in front of words" id="as_none" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
 
-        <label for="as_numbers">numbers ranging from:</label>
-        <div style="display: flex; gap: 5px;">
-          <input placeholder="low" id="as_numbers_from" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 50%;"/>
-          <input placeholder="high" id="as_numbers_to" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 50%;"/>
+        <label for="as_numbers" style="font-size: 14px; color: #5f6368;">numbers ranging from:</label>
+        <div style="display: flex; gap: 10px;">
+          <input placeholder="low" id="as_numbers_from" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 50%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
+          <input placeholder="high" id="as_numbers_to" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 50%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
         </div>
       </div>
     </div>
 
-    <div style="margin-bottom: 15px;">
-      <h4 style="margin-bottom: 5px; border-bottom: 1px solid #eee; padding-bottom: 5px;">Then narrow your results by...</h4>
-      <div style="display: grid; grid-template-columns: 180px 1fr; gap: 5px; align-items: center;">
-        <label for="as_site">site or domain:</label>
-        <input placeholder="e.g., wikipedia.org, .edu" id="as_site" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;"/>
+    <div style="margin-bottom: 20px; background: #f8f9fa; border-radius: 8px; padding: 15px;">
+      <h4 style="margin-top: 0; margin-bottom: 12px; color: #202124; font-size: 16px; font-weight: 500; border-bottom: 1px solid #dadce0; padding-bottom: 8px;">Then narrow your results by...</h4>
+      <div style="display: grid; grid-template-columns: 180px 1fr; gap: 10px; align-items: center;">
+        <label for="as_site" style="font-size: 14px; color: #5f6368;">site or domain:</label>
+        <input placeholder="e.g., wikipedia.org, .edu" id="as_site" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
 
-        <label>terms appearing:</label>
+        <label style="font-size: 14px; color: #5f6368;">terms appearing:</label>
         <div>
-          <select id="as_occt" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 100%;">
+          <select id="as_occt" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
             <option value="">anywhere in the page</option>
             <option value="title">in the title of the page</option>
             <option value="url">in the URL of the page</option>
@@ -82,8 +119,8 @@ function showPopup() {
           </select>
         </div>
 
-        <label for="as_filetype">file type:</label>
-        <select id="as_file" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 100%;">
+        <label for="as_filetype" style="font-size: 14px; color: #5f6368;">file type:</label>
+        <select id="as_file" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
           <option value="">any format</option>
           <option value="pdf">PDF (.pdf)</option>
           <option value="doc">Microsoft Word (.doc)</option>
@@ -100,8 +137,8 @@ function showPopup() {
           <option value="json">JSON (.json)</option>
         </select>
 
-        <label>usage rights:</label>
-        <select id="as_rights" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 100%;">
+        <label style="font-size: 14px; color: #5f6368;">usage rights:</label>
+        <select id="as_rights" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
           <option value="">not filtered by license</option>
           <option value="cc_publicdomain">free to use or share</option>
           <option value="cc_attribute">free to use or share, even commercially</option>
@@ -112,11 +149,11 @@ function showPopup() {
       </div>
     </div>
 
-    <div style="margin-bottom: 15px;">
-      <h4 style="margin-bottom: 5px; border-bottom: 1px solid #eee; padding-bottom: 5px;">Filter by date and region</h4>
-      <div style="display: grid; grid-template-columns: 180px 1fr; gap: 5px; align-items: center;">
-        <label>last update:</label>
-        <select id="as_time" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 100%;">
+    <div style="margin-bottom: 20px; background: #f8f9fa; border-radius: 8px; padding: 15px;">
+      <h4 style="margin-top: 0; margin-bottom: 12px; color: #202124; font-size: 16px; font-weight: 500; border-bottom: 1px solid #dadce0; padding-bottom: 8px;">Filter by date and region</h4>
+      <div style="display: grid; grid-template-columns: 180px 1fr; gap: 10px; align-items: center;">
+        <label style="font-size: 14px; color: #5f6368;">last update:</label>
+        <select id="as_time" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
           <option value="">anytime</option>
           <option value="h">past hour</option>
           <option value="d">past 24 hours</option>
@@ -125,8 +162,8 @@ function showPopup() {
           <option value="y">past year</option>
         </select>
 
-        <label>language:</label>
-        <select id="as_lang" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 100%;">
+        <label style="font-size: 14px; color: #5f6368;">language:</label>
+        <select id="as_lang" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
           <option value="">any language</option>
           <option value="lang_en">English</option>
           <option value="lang_fr">French</option>
@@ -143,8 +180,8 @@ function showPopup() {
           <option value="lang_hi">Hindi</option>
         </select>
 
-        <label>region:</label>
-        <select id="as_cr" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 100%;">
+        <label style="font-size: 14px; color: #5f6368;">region:</label>
+        <select id="as_cr" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
           <option value="">any region</option>
           <option value="countryUS">United States</option>
           <option value="countryGB">United Kingdom</option>
@@ -159,32 +196,57 @@ function showPopup() {
           <option value="countryCN">China</option>
         </select>
 
-        <label>SafeSearch:</label>
-        <select id="as_safesearch" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px; width: 100%;">
+        <label style="font-size: 14px; color: #5f6368;">SafeSearch:</label>
+        <select id="as_safesearch" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
           <option value="">Show most relevant results</option>
           <option value="active">Filter explicit results</option>
         </select>
       </div>
     </div>
 
-    <div style="text-align:right; margin-top: 15px;">
-      <button id="as_submit" style="background-color: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin-right: 10px;">
-        🔍 Search
-      </button>
-      <button onclick="document.getElementById('advsearch-popup').remove()" style="background-color: #f8f9fa; color: #202124; border: 1px solid #dadce0; padding: 10px 20px; border-radius: 4px; cursor: pointer;">
+    <div style="display: flex; justify-content: flex-end; margin-top: 20px; gap: 10px;">
+      <button onclick="document.getElementById('advsearch-popup').remove(); document.getElementById('advsearch-overlay').remove();" style="background-color: #f8f9fa; color: #5f6368; border: 1px solid #dadce0; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">
         Cancel
+      </button>
+      <button id="as_submit" style="background-color: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">
+        🔍 Search
       </button>
     </div>
   `;
 
   document.body.appendChild(popup);
 
-  // Load previous preferences
-  chrome.storage.sync.get("advSearchPrefs", ({ advSearchPrefs }) => {
-    if (!advSearchPrefs) return;
-    for (const [key, val] of Object.entries(advSearchPrefs)) {
-      const el = document.getElementById(key);
-      if (el) el.value = val;
+  // Add event listener for close button
+  document.getElementById('as_close').addEventListener('click', () => {
+    document.getElementById('advsearch-popup').remove();
+    document.getElementById('advsearch-overlay').remove();
+  });
+
+  // Load previous preferences and default language
+  chrome.storage.sync.get(["advSearchPrefs", "defaultLanguage"], (result) => {
+    const { advSearchPrefs, defaultLanguage } = result;
+
+    // Set form values from saved preferences
+    if (advSearchPrefs) {
+      for (const [key, val] of Object.entries(advSearchPrefs)) {
+        const el = document.getElementById(key);
+        if (el) el.value = val;
+      }
+    }
+
+    // Set language from user's default language preference if not already set
+    if (defaultLanguage && (!advSearchPrefs || !advSearchPrefs.as_lang)) {
+      const langSelect = document.getElementById('as_lang');
+      // Convert the language code to the format expected by Google (lang_XX)
+      const googleLangCode = defaultLanguage.startsWith('lang_') ? 
+        defaultLanguage : `lang_${defaultLanguage}`;
+
+      // Check if the language is in the dropdown
+      const langExists = [...langSelect.options].some(opt => opt.value === googleLangCode);
+
+      if (langExists) {
+        langSelect.value = googleLangCode;
+      }
     }
   });
 
