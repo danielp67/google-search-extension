@@ -7,7 +7,7 @@ export function run() {
 
   const chatGptBtn = actualBtn.cloneNode(true);
   chatGptBtn.id = 'chatGpt-button';
-  chatGptBtn.innerText = 'IA';
+  chatGptBtn.innerText = 'ChatGPT';
 
   const query = new URLSearchParams(window.location.search).get('q') || '';
   chatGptBtn.href =  `https://chat.openai.com/?q=${encodeURIComponent(query)}`;

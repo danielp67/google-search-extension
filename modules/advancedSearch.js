@@ -1,4 +1,10 @@
-export function run() {
+// Import custom i18n module
+import { initI18n, getMessage } from './i18n.js';
+
+export async function run() {
+  // Initialize i18n module
+  await initI18n();
+
   const navBar = document.querySelector('div[role="navigation"]');
   if (!navBar || document.querySelector('#advancedsearch-button')) return;
 
@@ -22,7 +28,7 @@ export function run() {
 
   const advBtn = actualBtn.cloneNode(true);
   advBtn.id = 'advancedsearch-button';
-  advBtn.innerText = chrome.i18n.getMessage("advancedSearch");
+  advBtn.innerText = await getMessage("advancedSearch");
   advBtn.href = '#';
   advBtn.addEventListener('click', (e) => {
     e.preventDefault();
