@@ -160,7 +160,18 @@ function showPopup() {
           <option value="w">past week</option>
           <option value="m">past month</option>
           <option value="y">past year</option>
+          <option value="custom">custom range...</option>
         </select>
+
+        <div id="as_date_range_container" style="display: none; grid-column: span 2; margin-top: 10px;">
+          <div style="display: grid; grid-template-columns: 180px 1fr; gap: 10px; align-items: center;">
+            <label for="as_date_from" style="font-size: 14px; color: #5f6368;">from date:</label>
+            <input type="date" id="as_date_from" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
+
+            <label for="as_date_to" style="font-size: 14px; color: #5f6368;">to date:</label>
+            <input type="date" id="as_date_to" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px;"/>
+          </div>
+        </div>
 
         <label style="font-size: 14px; color: #5f6368;">language:</label>
         <select id="as_lang" style="padding: 10px; border: 1px solid #dadce0; border-radius: 8px; width: 100%; box-sizing: border-box; transition: border-color 0.2s; font-size: 14px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg fill=\"%235F6368\" height=\"24\" viewBox=\"0 0 24 24\" width=\"24\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M7 10l5 5 5-5z\"/><path d=\"M0 0h24v24H0z\" fill=\"none\"/></svg>'); background-repeat: no-repeat; background-position: right 10px center;">
@@ -222,6 +233,16 @@ function showPopup() {
     document.getElementById('advsearch-overlay').remove();
   });
 
+  // Add event listener for time dropdown to show/hide date range inputs
+  document.getElementById('as_time').addEventListener('change', (e) => {
+    const dateRangeContainer = document.getElementById('as_date_range_container');
+    if (e.target.value === 'custom') {
+      dateRangeContainer.style.display = 'block';
+    } else {
+      dateRangeContainer.style.display = 'none';
+    }
+  });
+
   // Load previous preferences and default language
   chrome.storage.sync.get(["advSearchPrefs", "defaultLanguage"], (result) => {
     const { advSearchPrefs, defaultLanguage } = result;
@@ -231,6 +252,11 @@ function showPopup() {
       for (const [key, val] of Object.entries(advSearchPrefs)) {
         const el = document.getElementById(key);
         if (el) el.value = val;
+      }
+
+      // Show date range container if custom time range was selected
+      if (advSearchPrefs.as_time === 'custom') {
+        document.getElementById('as_date_range_container').style.display = 'block';
       }
     }
 
@@ -263,6 +289,8 @@ function showPopup() {
     const file = document.getElementById('as_file').value;
     const rights = document.getElementById('as_rights').value;
     const time = document.getElementById('as_time').value;
+    const dateFrom = document.getElementById('as_date_from').value;
+    const dateTo = document.getElementById('as_date_to').value;
     const lang = document.getElementById('as_lang').value;
     const cr = document.getElementById('as_cr').value;
     const safeSearch = document.getElementById('as_safesearch').value;
@@ -278,6 +306,8 @@ function showPopup() {
       as_site: site, 
       as_occt: occt,
       as_time: time, 
+      as_date_from: dateFrom,
+      as_date_to: dateTo,
       as_lang: lang, 
       as_file: file,
       as_rights: rights,
@@ -318,7 +348,21 @@ function showPopup() {
     let tbs = '';
 
     // Time period
-    if (time) {
+    if (time === 'custom' && dateFrom && dateTo) {
+      // Format dates as YYYYMMDD for Google's API
+      const formatDate = (dateStr) => {
+        const date = new Date(dateStr);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}${month}${day}`;
+      };
+
+      const fromFormatted = formatDate(dateFrom);
+      const toFormatted = formatDate(dateTo);
+
+      tbs += `cdr:1,cd_min:${fromFormatted},cd_max:${toFormatted}`;
+    } else if (time && time !== 'custom') {
       tbs += `qdr:${time}`;
     }
 
