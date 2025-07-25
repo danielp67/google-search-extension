@@ -178,7 +178,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     { key: "redditButton", label: await getMessage("redditModule") },
     { key: "translateButton", label: await getMessage("translateModule") },
     { key: "chatgptButton", label: await getMessage("chatgptModule") },
-    { key: "newsButton", label: await getMessage("newsModule") },
     { key: "advancedSearch", label: await getMessage("advancedSearchModule") }
   ];
 
