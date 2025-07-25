@@ -10,13 +10,28 @@ export function run() {
   if (videosBtn) {
     const mapsBtn = videosBtn.cloneNode(true);
     mapsBtn.id = "maps-button";
-    mapsBtn.innerText = "Maps";
+
+    // Clear the anchor text
+    mapsBtn.innerText = "";
+
+    // Create a div inside the anchor
+    const innerDiv = document.createElement('div');
+    innerDiv.className = "YmvwI";
+    innerDiv.innerText = "Maps";
+    mapsBtn.appendChild(innerDiv);
 
     // Met à jour le lien de redirection
     const query = new URLSearchParams(window.location.search).get('q') || '';
     mapsBtn.href = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
 
-    // Insère juste après "Vidéos"
-    videosBtn.parentNode.insertBefore(mapsBtn, videosBtn.nextSibling);
+    // Clone the parent div (which has role="listitem")
+    const parentDiv = videosBtn.parentNode;
+    const newParentDiv = parentDiv.cloneNode(false); // shallow clone without children
+
+    // Add the Maps button to the new div
+    newParentDiv.appendChild(mapsBtn);
+
+    // Insert the new div after the original div
+    parentDiv.parentNode.insertBefore(newParentDiv, parentDiv.nextSibling);
   }
 }

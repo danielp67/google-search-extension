@@ -7,10 +7,26 @@ export function run() {
 
   const chatGptBtn = actualBtn.cloneNode(true);
   chatGptBtn.id = 'chatGpt-button';
-  chatGptBtn.innerText = 'ChatGPT';
+
+  // Clear the anchor text
+  chatGptBtn.innerText = '';
+
+  // Create a div inside the anchor
+  const innerDiv = document.createElement('div');
+  innerDiv.className = "YmvwI";
+  innerDiv.innerText = 'ChatGPT';
+  chatGptBtn.appendChild(innerDiv);
 
   const query = new URLSearchParams(window.location.search).get('q') || '';
   chatGptBtn.href =  `https://chat.openai.com/?q=${encodeURIComponent(query)}`;
 
-  actualBtn.parentNode.insertBefore(chatGptBtn, actualBtn.nextSibling);
+  // Clone the parent div (which has role="listitem")
+  const parentDiv = actualBtn.parentNode;
+  const newParentDiv = parentDiv.cloneNode(false); // shallow clone without children
+
+  // Add the ChatGPT button to the new div
+  newParentDiv.appendChild(chatGptBtn);
+
+  // Insert the new div after the original div
+  parentDiv.parentNode.insertBefore(newParentDiv, parentDiv.nextSibling);
 }

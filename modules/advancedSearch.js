@@ -28,14 +28,33 @@ export async function run() {
 
   const advBtn = actualBtn.cloneNode(true);
   advBtn.id = 'advancedsearch-button';
-  advBtn.innerText = await getMessage("advancedSearch");
+
+  // Clear the anchor text
+  advBtn.innerText = '';
+
+  // Create a div inside the anchor
+  const innerDiv = document.createElement('div');
+  innerDiv.className = "YmvwI";
+  innerDiv.innerText = await getMessage("advancedSearch");
+  advBtn.appendChild(innerDiv);
+
   advBtn.href = '#';
   advBtn.addEventListener('click', (e) => {
     e.preventDefault();
     showPopup();
   });
 
-  actualBtn.parentNode.insertBefore(advBtn, actualBtn.nextSibling);
+  // Clone the parent div (which has role="listitem")
+  const parentDiv = actualBtn.parentNode;
+  const newParentDiv = parentDiv.cloneNode(false); // shallow clone without children
+
+  // Add the ChatGPT button to the new div
+  newParentDiv.appendChild(advBtn);
+
+  // Insert the new div after the original div
+  parentDiv.parentNode.insertBefore(newParentDiv, parentDiv.nextSibling);
+
+ // actualBtn.parentNode.insertBefore(advBtn, actualBtn.nextSibling);
 }
 
 function showPopup() {

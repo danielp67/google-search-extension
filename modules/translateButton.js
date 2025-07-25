@@ -7,7 +7,15 @@ export function run() {
 
   const translateBtn = actualBtn.cloneNode(true);
   translateBtn.id = 'translate-button';
-  translateBtn.innerText = 'Translate';
+
+  // Clear the anchor text
+  translateBtn.innerText = '';
+
+  // Create a div inside the anchor
+  const innerDiv = document.createElement('div');
+  innerDiv.className = "YmvwI";
+  innerDiv.innerText = 'Translate';
+  translateBtn.appendChild(innerDiv);
 
   const query = new URLSearchParams(window.location.search).get('q') || '';
 
@@ -19,7 +27,14 @@ export function run() {
     // Set the source language to auto-detect and the target language to the user's preference
     translateBtn.href = `https://translate.google.com/?sl=auto&tl=${targetLang}&text=${encodeURIComponent(query)}&op=translate`;
 
-    // Add the button to the DOM after setting the href
-    actualBtn.parentNode.insertBefore(translateBtn, actualBtn.nextSibling);
+    // Clone the parent div (which has role="listitem")
+    const parentDiv = actualBtn.parentNode;
+    const newParentDiv = parentDiv.cloneNode(false); // shallow clone without children
+
+    // Add the Translate button to the new div
+    newParentDiv.appendChild(translateBtn);
+
+    // Insert the new div after the original div
+    parentDiv.parentNode.insertBefore(newParentDiv, parentDiv.nextSibling);
   });
 }

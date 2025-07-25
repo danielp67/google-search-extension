@@ -1,3 +1,4 @@
+/*
 function addMapsButton() {
   const navBar = document.querySelector('div[role="navigation"]');
   if (!navBar) return;
@@ -10,7 +11,7 @@ function addMapsButton() {
   let videosBtn = null;
 
   for (const text of videoTexts) {
-    videosBtn = Array.from(navBar.querySelectorAll('a')).find(a => 
+    videosBtn = Array.from(navBar.querySelectorAll('a')).find(a =>
       a.innerText.toLowerCase().includes(text)
     );
     if (videosBtn) break;
@@ -25,8 +26,15 @@ function addMapsButton() {
     const query = new URLSearchParams(window.location.search).get('q') || '';
     mapsBtn.href = `https://www.google.com/maps/search/${encodeURIComponent(query)}`;
 
-    // Insert just after the Videos button
-    videosBtn.parentNode.insertBefore(mapsBtn, videosBtn.nextSibling);
+    // Clone the parent div (which has role="listitem")
+    const parentDiv = videosBtn.parentNode;
+    const newParentDiv = parentDiv.cloneNode(false); // shallow clone without children
+
+    // Add the Maps button to the new div
+    newParentDiv.appendChild(mapsBtn);
+
+    // Insert the new div after the original div
+    parentDiv.parentNode.insertBefore(newParentDiv, parentDiv.nextSibling);
   }
 }
 
@@ -35,3 +43,4 @@ const observer = new MutationObserver(() => {
 });
 
 observer.observe(document.body, { childList: true, subtree: true });
+*/
