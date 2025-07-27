@@ -60,6 +60,13 @@ export async function run() {
 function showPopup() {
   if (document.getElementById('advsearch-popup')) return;
 
+  // Extract current search query from the page
+  let currentQuery = '';
+  const searchInput = document.querySelector('input[name="q"]');
+  if (searchInput) {
+    currentQuery = searchInput.value || '';
+  }
+
   const popup = document.createElement('div');
   popup.id = 'advsearch-popup';
   popup.style = `
@@ -240,13 +247,23 @@ function showPopup() {
       </div>
     </div>
 
-    <div style="display: flex; justify-content: flex-end; margin-top: 20px; gap: 10px;">
-      <button onclick="document.getElementById('advsearch-popup').remove(); document.getElementById('advsearch-overlay').remove();" style="background-color: #f8f9fa; color: #5f6368; border: 1px solid #dadce0; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">
-        Cancel
-      </button>
-      <button id="as_submit" style="background-color: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">
-        🔍 Search
-      </button>
+    <div style="display: flex; justify-content: space-between; margin-top: 20px; gap: 10px;">
+      <div>
+        <button id="as_save_settings" style="background-color: #34a853; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s; margin-right: 10px;">
+          💾 Save Settings
+        </button>
+        <button id="as_reset_filters" style="background-color: #ea4335; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">
+          🔄 Reset Filters
+        </button>
+      </div>
+      <div>
+        <button onclick="document.getElementById('advsearch-popup').remove(); document.getElementById('advsearch-overlay').remove();" style="background-color: #f8f9fa; color: #5f6368; border: 1px solid #dadce0; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s; margin-right: 10px;">
+          Cancel
+        </button>
+        <button id="as_submit" style="background-color: #1a73e8; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; transition: background-color 0.2s;">
+          🔍 Search
+        </button>
+      </div>
     </div>
   `;
 
@@ -268,12 +285,201 @@ function showPopup() {
     }
   });
 
+  // Function to parse search query and fill form fields
+  function parseAndFillSearchQuery(query) {
+    if (!query) return;
+
+    // Initialize objects to store parsed values
+    const parsed = {
+      all: [],
+      exact: [],
+      any: [],
+      none: [],
+      site: '',
+      filetype: ''
+    };
+
+    // Regular expressions for different search operators
+    const exactRegex = /"([^"]*)"/g;
+    const siteRegex = /\bsite:([^\s]+)/g;
+    const filetypeRegex = /\bfiletype:([^\s]+)/g;
+    const orRegex = /\b([^\s]+)\s+OR\s+([^\s]+)\b/g;
+    const minusRegex = /\B-([^\s]+)/g;
+    const numberRangeRegex = /\b(\d+)\.\.(\d+)\b/g;
+
+    // Extract exact phrases (in quotes)
+    let exactMatches = query.match(exactRegex);
+    if (exactMatches) {
+      exactMatches.forEach(match => {
+        // Remove the quotes and add to exact array
+        parsed.exact.push(match.slice(1, -1));
+        // Remove from the query
+        query = query.replace(match, ' ');
+      });
+    }
+
+    // Extract site: operator
+    let siteMatch = siteRegex.exec(query);
+    if (siteMatch) {
+      parsed.site = siteMatch[1];
+      query = query.replace(siteMatch[0], ' ');
+    }
+
+    // Extract filetype: operator
+    let filetypeMatch = filetypeRegex.exec(query);
+    if (filetypeMatch) {
+      parsed.filetype = filetypeMatch[1];
+      query = query.replace(filetypeMatch[0], ' ');
+    }
+
+    // Extract number ranges
+    let numberRangeMatch = numberRangeRegex.exec(query);
+    if (numberRangeMatch) {
+      parsed.numbersFrom = numberRangeMatch[1];
+      parsed.numbersTo = numberRangeMatch[2];
+      query = query.replace(numberRangeMatch[0], ' ');
+    }
+
+    // Extract OR terms
+    let orMatches = [];
+    let orMatch;
+    while ((orMatch = orRegex.exec(query)) !== null) {
+      orMatches.push(orMatch[1], orMatch[2]);
+      query = query.replace(orMatch[0], ' ');
+    }
+    if (orMatches.length > 0) {
+      parsed.any = orMatches;
+    }
+
+    // Extract negative terms
+    let minusMatches = [];
+    let minusMatch;
+    while ((minusMatch = minusRegex.exec(query)) !== null) {
+      minusMatches.push(minusMatch[1]);
+      query = query.replace(minusMatch[0], ' ');
+    }
+    if (minusMatches.length > 0) {
+      parsed.none = minusMatches;
+    }
+
+    // The remaining terms are "all" terms
+    const remainingTerms = query.split(/\s+/).filter(term => term.trim() !== '');
+    if (remainingTerms.length > 0) {
+      parsed.all = remainingTerms;
+    }
+
+    // Fill the form fields with parsed values
+    if (parsed.all.length > 0) {
+      document.getElementById('as_all').value = parsed.all.join(' ');
+    }
+
+    if (parsed.exact.length > 0) {
+      document.getElementById('as_exact').value = parsed.exact.join(' ');
+    }
+
+    if (parsed.any.length > 0) {
+      document.getElementById('as_any').value = parsed.any.join(' ');
+    }
+
+    if (parsed.none.length > 0) {
+      document.getElementById('as_none').value = parsed.none.join(' ');
+    }
+
+    if (parsed.site) {
+      document.getElementById('as_site').value = parsed.site;
+    }
+
+    if (parsed.filetype) {
+      document.getElementById('as_file').value = parsed.filetype;
+    }
+
+    if (parsed.numbersFrom && parsed.numbersTo) {
+      document.getElementById('as_numbers_from').value = parsed.numbersFrom;
+      document.getElementById('as_numbers_to').value = parsed.numbersTo;
+    }
+
+    // Try to extract other parameters from URL
+    try {
+      const url = new URL(window.location.href);
+
+      // Extract language
+      const lr = url.searchParams.get('lr');
+      if (lr) {
+        document.getElementById('as_lang').value = lr;
+      }
+
+      // Extract region
+      const cr = url.searchParams.get('cr');
+      if (cr) {
+        document.getElementById('as_cr').value = cr;
+      }
+
+      // Extract terms appearing
+      const asOcct = url.searchParams.get('as_occt');
+      if (asOcct) {
+        document.getElementById('as_occt').value = asOcct;
+      }
+
+      // Extract SafeSearch
+      const safe = url.searchParams.get('safe');
+      if (safe) {
+        document.getElementById('as_safesearch').value = safe;
+      }
+
+      // Extract time period from tbs parameter
+      const tbs = url.searchParams.get('tbs');
+      if (tbs) {
+        if (tbs.includes('qdr:')) {
+          const timeMatch = tbs.match(/qdr:([hwmdy])/);
+          if (timeMatch) {
+            document.getElementById('as_time').value = timeMatch[1];
+          }
+        } else if (tbs.includes('cdr:1')) {
+          document.getElementById('as_time').value = 'custom';
+          document.getElementById('as_date_range_container').style.display = 'block';
+
+          const cdMinMatch = tbs.match(/cd_min:(\d{8})/);
+          const cdMaxMatch = tbs.match(/cd_max:(\d{8})/);
+
+          if (cdMinMatch) {
+            const year = cdMinMatch[1].substring(0, 4);
+            const month = cdMinMatch[1].substring(4, 6);
+            const day = cdMinMatch[1].substring(6, 8);
+            document.getElementById('as_date_from').value = `${year}-${month}-${day}`;
+          }
+
+          if (cdMaxMatch) {
+            const year = cdMaxMatch[1].substring(0, 4);
+            const month = cdMaxMatch[1].substring(4, 6);
+            const day = cdMaxMatch[1].substring(6, 8);
+            document.getElementById('as_date_to').value = `${year}-${month}-${day}`;
+          }
+        }
+
+        // Extract usage rights
+        if (tbs.includes('sur:')) {
+          const rightsMatch = tbs.match(/sur:([^,]+)/);
+          if (rightsMatch) {
+            document.getElementById('as_rights').value = rightsMatch[1];
+          }
+        }
+      }
+    } catch (e) {
+      console.error('Error parsing URL parameters:', e);
+    }
+  }
+
+  // Parse current search query if available
+  if (currentQuery) {
+    parseAndFillSearchQuery(currentQuery);
+  }
+
   // Load previous preferences and default language
   chrome.storage.sync.get(["advSearchPrefs", "defaultLanguage"], (result) => {
     const { advSearchPrefs, defaultLanguage } = result;
 
-    // Set form values from saved preferences
-    if (advSearchPrefs) {
+    // Set form values from saved preferences if we don't have a current query
+    if (advSearchPrefs && !currentQuery) {
       for (const [key, val] of Object.entries(advSearchPrefs)) {
         const el = document.getElementById(key);
         if (el) el.value = val;
@@ -302,69 +508,128 @@ function showPopup() {
     }
   });
 
-  document.getElementById('as_submit').addEventListener('click', () => {
-    // Get all form values
-    const all = document.getElementById('as_all').value;
-    const exact = document.getElementById('as_exact').value;
-    const any = document.getElementById('as_any').value;
-    const none = document.getElementById('as_none').value;
-    const numbersFrom = document.getElementById('as_numbers_from').value;
-    const numbersTo = document.getElementById('as_numbers_to').value;
-    const site = document.getElementById('as_site').value;
-    const occt = document.getElementById('as_occt').value;
-    const file = document.getElementById('as_file').value;
-    const rights = document.getElementById('as_rights').value;
-    const time = document.getElementById('as_time').value;
-    const dateFrom = document.getElementById('as_date_from').value;
-    const dateTo = document.getElementById('as_date_to').value;
-    const lang = document.getElementById('as_lang').value;
-    const cr = document.getElementById('as_cr').value;
-    const safeSearch = document.getElementById('as_safesearch').value;
-
-    // Save preferences
-    const prefs = { 
-      as_all: all, 
-      as_exact: exact, 
-      as_any: any,
-      as_none: none, 
-      as_numbers_from: numbersFrom,
-      as_numbers_to: numbersTo,
-      as_site: site, 
-      as_occt: occt,
-      as_time: time, 
-      as_date_from: dateFrom,
-      as_date_to: dateTo,
-      as_lang: lang, 
-      as_file: file,
-      as_rights: rights,
-      as_cr: cr,
-      as_safesearch: safeSearch
+  // Function to get all form values
+  function getFormValues() {
+    return {
+      all: document.getElementById('as_all').value,
+      exact: document.getElementById('as_exact').value,
+      any: document.getElementById('as_any').value,
+      none: document.getElementById('as_none').value,
+      numbersFrom: document.getElementById('as_numbers_from').value,
+      numbersTo: document.getElementById('as_numbers_to').value,
+      site: document.getElementById('as_site').value,
+      occt: document.getElementById('as_occt').value,
+      file: document.getElementById('as_file').value,
+      rights: document.getElementById('as_rights').value,
+      time: document.getElementById('as_time').value,
+      dateFrom: document.getElementById('as_date_from').value,
+      dateTo: document.getElementById('as_date_to').value,
+      lang: document.getElementById('as_lang').value,
+      cr: document.getElementById('as_cr').value,
+      safeSearch: document.getElementById('as_safesearch').value
     };
+  }
+
+  // Function to save preferences
+  function savePreferences() {
+    const values = getFormValues();
+
+    const prefs = { 
+      as_all: values.all, 
+      as_exact: values.exact, 
+      as_any: values.any,
+      as_none: values.none, 
+      as_numbers_from: values.numbersFrom,
+      as_numbers_to: values.numbersTo,
+      as_site: values.site, 
+      as_occt: values.occt,
+      as_time: values.time, 
+      as_date_from: values.dateFrom,
+      as_date_to: values.dateTo,
+      as_lang: values.lang, 
+      as_file: values.file,
+      as_rights: values.rights,
+      as_cr: values.cr,
+      as_safesearch: values.safeSearch
+    };
+
     chrome.storage.sync.set({ advSearchPrefs: prefs });
+    return values;
+  }
+
+  // Add event listener for Save Settings button
+  document.getElementById('as_save_settings').addEventListener('click', () => {
+    savePreferences();
+    // Show a temporary success message
+    const saveBtn = document.getElementById('as_save_settings');
+    const originalText = saveBtn.innerHTML;
+    saveBtn.innerHTML = '✅ Saved!';
+    saveBtn.disabled = true;
+    setTimeout(() => {
+      saveBtn.innerHTML = originalText;
+      saveBtn.disabled = false;
+    }, 1500);
+  });
+
+  // Add event listener for Reset Filters button
+  document.getElementById('as_reset_filters').addEventListener('click', () => {
+    // Clear all form fields
+    document.getElementById('as_all').value = '';
+    document.getElementById('as_exact').value = '';
+    document.getElementById('as_any').value = '';
+    document.getElementById('as_none').value = '';
+    document.getElementById('as_numbers_from').value = '';
+    document.getElementById('as_numbers_to').value = '';
+    document.getElementById('as_site').value = '';
+    document.getElementById('as_occt').value = '';
+    document.getElementById('as_file').value = '';
+    document.getElementById('as_rights').value = '';
+    document.getElementById('as_time').value = '';
+    document.getElementById('as_date_from').value = '';
+    document.getElementById('as_date_to').value = '';
+    document.getElementById('as_lang').value = '';
+    document.getElementById('as_cr').value = '';
+    document.getElementById('as_safesearch').value = '';
+
+    // Hide date range container
+    document.getElementById('as_date_range_container').style.display = 'none';
+
+    // Show a temporary success message
+    const resetBtn = document.getElementById('as_reset_filters');
+    const originalText = resetBtn.innerHTML;
+    resetBtn.innerHTML = '✅ Reset!';
+    setTimeout(() => {
+      resetBtn.innerHTML = originalText;
+    }, 1500);
+  });
+
+  document.getElementById('as_submit').addEventListener('click', () => {
+    // Save preferences before submitting
+    const values = savePreferences();
 
     // Build query string
     let query = '';
-    if (all) query += ' ' + all;
-    if (exact) query += ` "${exact}"`;
-    if (any) {
+    if (values.all) query += ' ' + values.all;
+    if (values.exact) query += ` "${values.exact}"`;
+    if (values.any) {
       // Convert space-separated words to OR syntax
-      const anyWords = any.split(' ').filter(word => word.trim() !== '');
+      const anyWords = values.any.split(' ').filter(word => word.trim() !== '');
       if (anyWords.length > 0) {
         query += ' ' + anyWords.join(' OR ');
       }
     }
-    if (none) {
+    if (values.none) {
       // Handle multiple words by adding - to each
-      const noneWords = none.split(' ').filter(word => word.trim() !== '');
+      const noneWords = values.none.split(' ').filter(word => word.trim() !== '');
       if (noneWords.length > 0) {
         query += ' -' + noneWords.join(' -');
       }
     }
-    if (numbersFrom && numbersTo) {
-      query += ` ${numbersFrom}..${numbersTo}`;
+    if (values.numbersFrom && values.numbersTo) {
+      query += ` ${values.numbersFrom}..${values.numbersTo}`;
     }
-    if (site) query += ` site:${site}`;
-    if (file) query += ` filetype:${file}`;
+    if (values.site) query += ` site:${values.site}`;
+    if (values.file) query += ` filetype:${values.file}`;
 
     // Create search URL
     const url = new URL('https://www.google.com/search');
@@ -374,7 +639,7 @@ function showPopup() {
     let tbs = '';
 
     // Time period
-    if (time === 'custom' && dateFrom && dateTo) {
+    if (values.time === 'custom' && values.dateFrom && values.dateTo) {
       // Format dates as YYYYMMDD for Google's API
       const formatDate = (dateStr) => {
         const date = new Date(dateStr);
@@ -384,18 +649,18 @@ function showPopup() {
         return `${year}${month}${day}`;
       };
 
-      const fromFormatted = formatDate(dateFrom);
-      const toFormatted = formatDate(dateTo);
+      const fromFormatted = formatDate(values.dateFrom);
+      const toFormatted = formatDate(values.dateTo);
 
       tbs += `cdr:1,cd_min:${fromFormatted},cd_max:${toFormatted}`;
-    } else if (time && time !== 'custom') {
-      tbs += `qdr:${time}`;
+    } else if (values.time && values.time !== 'custom') {
+      tbs += `qdr:${values.time}`;
     }
 
     // Usage rights
-    if (rights) {
+    if (values.rights) {
       if (tbs) tbs += ',';
-      tbs += `sur:${rights}`;
+      tbs += `sur:${values.rights}`;
     }
 
     // Apply tbs parameter if any filters are set
@@ -404,23 +669,23 @@ function showPopup() {
     }
 
     // Language
-    if (lang) {
-      url.searchParams.set('lr', lang);
+    if (values.lang) {
+      url.searchParams.set('lr', values.lang);
     }
 
     // Region/Country
-    if (cr) {
-      url.searchParams.set('cr', cr);
+    if (values.cr) {
+      url.searchParams.set('cr', values.cr);
     }
 
     // Terms appearing in specific part of page
-    if (occt) {
-      url.searchParams.set('as_occt', occt);
+    if (values.occt) {
+      url.searchParams.set('as_occt', values.occt);
     }
 
     // SafeSearch
-    if (safeSearch) {
-      url.searchParams.set('safe', safeSearch);
+    if (values.safeSearch) {
+      url.searchParams.set('safe', values.safeSearch);
     }
 
     window.location.href = url.toString();
