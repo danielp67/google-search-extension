@@ -1,6 +1,11 @@
 # Google Search Plus
 
+![banner](images/banner.png)
+
 **Google Search Plus** is a free Chrome extension that enhances your Google search experience with powerful features and quick access to popular services directly from the search results page.
+
+![image1](images/image1.png)
+![options](images/option.png)
 
 ## Features
 
@@ -12,6 +17,10 @@ Ask ChatGPT about your search query directly from Google. The extension adds an 
 
 ### 🌐 Translation Support
 Quickly translate your search query with a single click. The Translate button uses your preferred language settings to instantly translate your search terms using Google Translate.
+
+### 🔄 Reddit Integration
+Find discussions about your search topic on Reddit with a single click. The Reddit button takes your current search query and searches Reddit for relevant conversations.
+
 
 ### 🔍 Advanced Search
 Access powerful search filters and options without remembering complex search operators. The Advanced Search feature provides an intuitive interface for:
@@ -25,8 +34,10 @@ Access powerful search filters and options without remembering complex search op
 - Setting language and region preferences
 - Controlling SafeSearch settings
 
-### 🔄 Reddit Integration
-Find discussions about your search topic on Reddit with a single click. The Reddit button takes your current search query and searches Reddit for relevant conversations.
+![search1](images/adv-search1.png)
+![search2](images/adv-search2.png)
+
+
 
 ## Productivity Benefits
 
