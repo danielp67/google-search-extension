@@ -289,11 +289,12 @@ function showPopup() {
     if (defaultLanguage && (!advSearchPrefs || !advSearchPrefs.as_lang)) {
       const langSelect = document.getElementById('as_lang');
       // Convert the language code to the format expected by Google (lang_XX)
+      // Only if defaultLanguage is not empty and not already in the correct format
       const googleLangCode = defaultLanguage.startsWith('lang_') ? 
-        defaultLanguage : `lang_${defaultLanguage}`;
+        defaultLanguage : (defaultLanguage ? `lang_${defaultLanguage}` : '');
 
       // Check if the language is in the dropdown
-      const langExists = [...langSelect.options].some(opt => opt.value === googleLangCode);
+      const langExists = googleLangCode && [...langSelect.options].some(opt => opt.value === googleLangCode);
 
       if (langExists) {
         langSelect.value = googleLangCode;
