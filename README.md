@@ -89,6 +89,20 @@ Google Search Plus respects your privacy:
 - Minimal permissions (only accesses Google search pages)
 - All functionality works locally in your browser
 
+## Permissions
+
+Google Search Plus requires the following permissions to function properly:
+
+### 🔒 Host Permissions
+- **Google.com**: Required to modify the Google search results page and add buttons to the navigation bar. This permission is limited to Google search pages only.
+
+### 🔑 Extension Permissions
+- **Storage**: Used to save your preferences (enabled modules and language settings) between sessions.
+- **Scripting**: Needed to dynamically load and execute the module scripts that add functionality to Google search.
+- **Tabs**: Used only to reload extension pages when you change your language preference.
+
+All permissions are used solely to provide the extension's core functionality and enhance your search experience. No data is collected, stored externally, or shared with third parties.
+
 ## Open Source
 
 This extension is open source and free to use. Contributions are welcome!
