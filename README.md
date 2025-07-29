@@ -98,7 +98,6 @@ Google Search Plus requires the following permissions to function properly:
 
 ### 🔑 Extension Permissions
 - **Storage**: Used to save your preferences (enabled modules and language settings) between sessions.
-- **Scripting**: Needed to dynamically load and execute the module scripts that add functionality to Google search.
 - **Tabs**: Used only to reload extension pages when you change your language preference.
 
 All permissions are used solely to provide the extension's core functionality and enhance your search experience. No data is collected, stored externally, or shared with third parties.
