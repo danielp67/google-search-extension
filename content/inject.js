@@ -1,5 +1,15 @@
 (async () => {
-  const { activeModules = {} } = await chrome.storage.sync.get("activeModules");
+  let { activeModules = {} } = await chrome.storage.sync.get("activeModules");
+
+  if(Object.keys(activeModules).length === 0) {
+    activeModules = {
+      mapsButton: true,
+      redditButton: true,
+      translateButton: true,
+      chatgptButton: true,
+      advancedSearch: true
+    }
+  }
 
   const activeKeys = Object.entries(activeModules)
     .filter(([_, enabled]) => enabled)
