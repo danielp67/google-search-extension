@@ -1,3 +1,5 @@
+import {createGoogleTabDiv, createGoogleTabSpan} from './utils.js';
+
 export function run() {
   const navBar = document.querySelector('div[role="navigation"]');
   if (!navBar || document.querySelector('#reddit-button')) return;
@@ -12,9 +14,9 @@ export function run() {
   redditBtn.innerText = '';
 
   // Create a div inside the anchor
-  const innerDiv = document.createElement('div');
-  innerDiv.className = "YmvwI";
-  innerDiv.innerText = 'Reddit';
+  const innerSpan = createGoogleTabSpan('Reddit');
+  const innerDiv = createGoogleTabDiv();
+  innerDiv.appendChild(innerSpan);
   redditBtn.appendChild(innerDiv);
 
   const query = new URLSearchParams(window.location.search).get('q') || '';

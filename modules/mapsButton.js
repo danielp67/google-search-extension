@@ -1,3 +1,5 @@
+import {createGoogleTabDiv, createGoogleTabSpan} from './utils.js';
+
 export function run() {
   const navBar = document.querySelector('div[role="navigation"]');
   if (!navBar) return;
@@ -15,9 +17,9 @@ export function run() {
     mapsBtn.innerText = "";
 
     // Create a div inside the anchor
-    const innerDiv = document.createElement('div');
-    innerDiv.className = "YmvwI";
-    innerDiv.innerText = "Maps";
+    const innerSpan = createGoogleTabSpan('Maps');
+    const innerDiv = createGoogleTabDiv();
+    innerDiv.appendChild(innerSpan);
     mapsBtn.appendChild(innerDiv);
 
     // Met à jour le lien de redirection

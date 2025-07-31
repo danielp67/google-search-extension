@@ -1,5 +1,6 @@
 // Import custom i18n module
 import { initI18n, getMessage } from './i18n.js';
+import {createGoogleTabDiv, createGoogleTabSpan} from './utils.js';
 
 export async function run() {
   // Initialize i18n module
@@ -33,9 +34,10 @@ export async function run() {
   advBtn.innerText = '';
 
   // Create a div inside the anchor
-  const innerDiv = document.createElement('div');
-  innerDiv.className = "YmvwI";
-  innerDiv.innerText = await getMessage("advancedSearch");
+  const innerSpanText = await getMessage("advancedSearch");
+  const innerSpan = createGoogleTabSpan(innerSpanText);
+  const innerDiv = createGoogleTabDiv();
+  innerDiv.appendChild(innerSpan);
   advBtn.appendChild(innerDiv);
 
   advBtn.href = '#';

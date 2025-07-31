@@ -1,3 +1,4 @@
+import {createGoogleTabDiv, createGoogleTabSpan} from './utils.js';
 export function run() {
   const navBar = document.querySelector('div[role="navigation"]');
   if (!navBar || document.querySelector('#chatGpt-button')) return;
@@ -12,9 +13,9 @@ export function run() {
   chatGptBtn.innerText = '';
 
   // Create a div inside the anchor
-  const innerDiv = document.createElement('div');
-  innerDiv.className = "YmvwI";
-  innerDiv.innerText = 'ChatGPT';
+  const innerSpan = createGoogleTabSpan('ChatGPT');
+  const innerDiv = createGoogleTabDiv();
+  innerDiv.appendChild(innerSpan);
   chatGptBtn.appendChild(innerDiv);
 
   const query = new URLSearchParams(window.location.search).get('q') || '';
